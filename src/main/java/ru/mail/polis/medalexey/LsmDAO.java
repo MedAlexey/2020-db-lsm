@@ -40,6 +40,8 @@ public class LsmDAO implements DAO {
     private static final Logger logger = LoggerFactory.getLogger(LsmDAO.class);
 
     /**
+     * Creates new LSM database.
+     *
      * @param storage storage path to sstable directory
      * @param flushThreshold size on bytes that need to flush mem table
      * @throws IOException incorrect base
