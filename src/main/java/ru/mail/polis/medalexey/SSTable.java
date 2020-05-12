@@ -1,21 +1,21 @@
-package ru.mail.polis.medAlexey;
+package ru.mail.polis.medalexey;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.Iterator;
-import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.io.File;
 import java.nio.channels.FileChannel;
 import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+import java.util.Iterator;
 
-final class SSTable implements Table{
+final class SSTable implements Table {
 
     private final FileChannel channel;
     private final long fileSize;
     private final int rows;
 
-    SSTable(@NotNull final File file) throws IOException{
+    SSTable(@NotNull final File file) throws IOException {
         this.channel = FileChannel.open(file.toPath(), StandardOpenOption.READ);
         this.fileSize = channel.size();
         final ByteBuffer buf = ByteBuffer.allocate(Integer.BYTES);
@@ -68,7 +68,7 @@ final class SSTable implements Table{
         }
     }
 
-    private int binarySearch(@NotNull final ByteBuffer from) throws IOException{
+    private int binarySearch(@NotNull final ByteBuffer from) throws IOException {
         assert rows > 0;
 
         int left = 0;
@@ -131,7 +131,7 @@ final class SSTable implements Table{
 
     @NotNull
     @Override
-    public Iterator<Cell> iterator(@NotNull ByteBuffer from) throws IOException {
+    public Iterator<Cell> iterator(@NotNull final ByteBuffer from) throws IOException {
         return new Iterator<>() {
             private int next = binarySearch(from);
 
@@ -152,12 +152,12 @@ final class SSTable implements Table{
     }
 
     @Override
-    public void upsert(@NotNull ByteBuffer key, @NotNull ByteBuffer value) {
+    public void upsert(@NotNull final ByteBuffer key, @NotNull final ByteBuffer value) {
         throw new UnsupportedOperationException("Immutable!");
     }
 
     @Override
-    public void remove(@NotNull ByteBuffer key) {
+    public void remove(@NotNull final ByteBuffer key) {
         throw new UnsupportedOperationException("Immutable!");
     }
 
@@ -172,7 +172,7 @@ final class SSTable implements Table{
     }
 
     @Override
-    public void close() throws IOException{
+    public void close() throws IOException {
         channel.close();
     }
 }

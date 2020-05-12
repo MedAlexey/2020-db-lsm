@@ -1,15 +1,20 @@
-package ru.mail.polis.medAlexey;
+package ru.mail.polis.medalexey;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.TreeMap;
 import java.util.Iterator;
 import java.nio.ByteBuffer;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
-final class MemTable implements Table{
-    private final SortedMap<ByteBuffer, Value> map = new TreeMap<>();
-    private long sizeInBytes = 0L;
+final class MemTable implements Table {
+    private final SortedMap<ByteBuffer, Value> map;
+    private long sizeInBytes;
+
+    MemTable() {
+        this.map = new TreeMap<>();
+        this.sizeInBytes = 0L;
+    }
 
     @NotNull
     @Override
@@ -59,6 +64,6 @@ final class MemTable implements Table{
 
     @Override
     public void close() {
-
+        throw new UnsupportedOperationException("");
     }
 }

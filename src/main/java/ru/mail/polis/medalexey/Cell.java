@@ -1,4 +1,4 @@
-package ru.mail.polis.medAlexey;
+package ru.mail.polis.medalexey;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,11 +1,11 @@
-package ru.mail.polis.medAlexey;
+package ru.mail.polis.medalexey;
 
-import ru.mail.polis.Record;
 import org.jetbrains.annotations.NotNull;
+import ru.mail.polis.Record;
 
-import java.util.Iterator;
 import java.nio.ByteBuffer;
 import java.io.IOException;
+import java.util.Iterator;
 
 public interface Table {
 
@@ -34,5 +34,5 @@ public interface Table {
 
     int size();
 
-    void close() throws  IOException;
+    void close() throws IOException;
 }

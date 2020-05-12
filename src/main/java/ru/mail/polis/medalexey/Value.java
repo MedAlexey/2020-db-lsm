@@ -1,9 +1,9 @@
-package ru.mail.polis.medAlexey;
+package ru.mail.polis.medalexey;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
 import java.nio.ByteBuffer;
+import java.util.Optional;
 
 final class Value implements Comparable<Value> {
 
@@ -30,7 +30,7 @@ final class Value implements Comparable<Value> {
     @NotNull
     ByteBuffer getData() {
         assert !isTombstone();
-        return data.orElseThrow().asReadOnlyBuffer() ;
+        return data.orElseThrow().asReadOnlyBuffer();
     }
 
     @Override
