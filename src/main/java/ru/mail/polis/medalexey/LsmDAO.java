@@ -1,7 +1,5 @@
 package ru.mail.polis.medalexey;
 
-
-
 import com.google.common.collect.Iterators;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -23,8 +21,7 @@ import java.util.NavigableMap;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
-
-public class LSMDAO implements DAO {
+public class LsmDAO implements DAO {
 
     private static final String SUFFIX = ".dat";
     private static final String TEMP = ".tmp";
@@ -40,9 +37,14 @@ public class LSMDAO implements DAO {
     //State
     private int generation;
 
-    private static final Logger logger = LoggerFactory.getLogger(LSMDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(LsmDAO.class);
 
-    public LSMDAO(
+    /**
+     * @param storage storage path to sstable directory
+     * @param flushThreshold size on bytes that need to flush mem table
+     * @throws IOException incorrect base
+     */
+    public LsmDAO(
             @NotNull final File storage,
             final long flushThreshold) throws IOException {
 
@@ -52,13 +54,14 @@ public class LSMDAO implements DAO {
         this.storage = storage;
         this.memTable = new MemTable();
         this.ssTables = new TreeMap<>();
-        try(Stream<Path> files = Files.list(storage.toPath())) {
+        try (Stream<Path> files = Files.list(storage.toPath())) {
             files.filter(
                     path -> path.toString().endsWith(SUFFIX)).forEach(
                             f -> {
                                 try {
                                     final String name = f.getFileName().toString();
-                                    final int fileGeneration = Integer.parseInt(name.substring(0, name.indexOf(SUFFIX)));
+                                    final int fileGeneration =
+                                            Integer.parseInt(name.substring(0, name.indexOf(SUFFIX)));
                                     this.generation = Math.max(this.generation, fileGeneration);
                                     ssTables.put(fileGeneration, new SSTable(f.toFile()));
                                 } catch (IOException e) {
@@ -104,7 +107,7 @@ public class LSMDAO implements DAO {
         }
     }
 
-    private void flush() throws IOException{
+    private void flush() throws IOException {
         final File file = new File(storage, generation + TEMP);
         SSTable.serialize(
                 file,

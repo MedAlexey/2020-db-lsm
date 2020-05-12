@@ -3,8 +3,8 @@ package ru.mail.polis.medalexey;
 import org.jetbrains.annotations.NotNull;
 import ru.mail.polis.Record;
 
-import java.nio.ByteBuffer;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Iterator;
 
 public interface Table {
